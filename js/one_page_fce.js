@@ -7,7 +7,7 @@ $(function() { //shorthand document.ready function
 });
 
 //     QUESTIONS_MAP = {
-//     'hrs per week 9': 'Q-01',
+//     'hrs per week': 'Q-01',
 //     'interest in student learning': 'Q-02',
 //     'explain course requirements': 'Q-03',
 //     'clear learning goals': 'Q-04',
@@ -48,6 +48,7 @@ function Course (data) {
                    this.instructor,
                    normalizeScore(this.questions["Q-10"]),
                    normalizeScore(this.questions["Q-09"]),
+                   normalizeScore(this.questions["Q-07"]),
                    normalizeScore(this.questions["Q-02"]),
                    this.questions["Q-01"],
                    this.enrollment,
@@ -94,6 +95,8 @@ function search(text) {
         "id": "result-body",
         html: items.join( "" )
       }).appendTo( "#search-result" );
+    $("#search-result").removeAttr("data-sortable-initialized")
+    Sortable.init()
     });
   }
 }
