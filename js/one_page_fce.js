@@ -71,7 +71,7 @@ function search(text) {
   } else {
     rest = text;
   }
-  var BASE_URL = "http://courseapi-scotty.rhcloud.com/fce/_search?pretty&size=50&sort=year:desc&default_operator=AND";
+  var BASE_URL = "http://courseapi-scotty.rhcloud.com/fce/_search?size=50&sort=year:desc&default_operator=AND";
   var search_url;
   if (courseid) {
     search_url = BASE_URL.concat("&q=courseid:", courseid);
