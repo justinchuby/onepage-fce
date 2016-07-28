@@ -71,32 +71,47 @@ function search(text) {
   } else {
     rest = text;
   }
-  var BASE_URL = "http://courseapi-scotty.rhcloud.com/fce/_search?size=50&sort=year:desc&default_operator=AND";
+  var BASE_URL = "https://courseapi-scotty.rhcloud.com/fce/_search?size=50&sort=year:desc&default_operator=AND";
   var search_url;
+  // Construct query url to the server.
   if (courseid) {
     search_url = BASE_URL.concat("&q=courseid:", courseid);
   } else if (rest) {
     search_url = BASE_URL.concat("&q=instructor:", rest);
   }
+  // If there's a constructed url, then search.
   if (search_url) {
     $.getJSON( search_url, function( data ) {
       var items = [];
+      var result_prompt = "<br/>";
       try {
         var hits = data.hits.hits;
+        if (data.hits.total == 0) {
+          result_prompt = "Nothing was found.";
+        }
         for (i in hits) {
-          hit = hits[i]
+          hit = hits[i];
           course = new Course(hit._source);
           items.push( course.getTable() );
         }
-      } finally {
+      } catch(err) {
+        result_prompt = "Some thing went wrong. " + err;
       }
+      // Update page with the result.
       $("#result-body").remove();
+      $("#prompt-text").remove();
       $( "<tbody/>", {
         "id": "result-body",
         html: items.join( "" )
       }).appendTo( "#search-result" );
-    $("#search-result").removeAttr("data-sortable-initialized")
-    Sortable.init()
+      $( "<p/>", {
+        "id": "prompt-text",
+        html: result_prompt
+      }).appendTo( "#prompt-div" );
+
+    // Initialize Sortable.
+    $("#search-result").removeAttr("data-sortable-initialized");
+    Sortable.init();
     });
   }
 }
