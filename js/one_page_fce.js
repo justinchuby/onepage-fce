@@ -2,8 +2,11 @@ $(function() { //shorthand document.ready function
   $("#search-form").on('submit', function(e) {
       e.preventDefault();
       var data = $("#search-form :input").val();
+      setHash(data);
       search(data);
   });
+  handleHashChange();
+  window.addEventListener('hashchange', handleHashChange);
 });
 
 //     QUESTIONS_MAP = {
@@ -113,5 +116,19 @@ function search(text) {
     $("#search-result").removeAttr("data-sortable-initialized");
     Sortable.init();
     });
+  }
+}
+
+function handleHashChange() {
+  var hashContent = decodeURIComponent(location.hash.slice(1));
+  $("#search-form :input").val(hashContent);
+  search(hashContent);
+}
+
+function setHash(content) {
+  var hashContent = decodeURIComponent(location.hash.slice(1));
+  if (content != hashContent) {
+    var encodedContent = encodeURIComponent(content);
+    window.location.hash = "#" + encodedContent;
   }
 }
