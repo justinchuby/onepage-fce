@@ -62,7 +62,7 @@ function Course (data) {
 };
 
 function normalizeScore(score) {
-  return Math.round(score / 5 * 100);
+  return Math.round((score - 1) * 25);
 }
 
 function search(text) {
