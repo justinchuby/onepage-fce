@@ -74,13 +74,13 @@ function search(text) {
   } else {
     rest = text;
   }
-  var BASE_URL = "https://courseapi-scotty.rhcloud.com/fce/_search?size=300&sort=year:desc&default_operator=AND";
+  var BASE_URL = "https://api.cmucoursefind.xyz/fce/v1/";
   var search_url;
   // Construct query url to the server.
   if (courseid) {
-    search_url = BASE_URL.concat("&q=courseid:", courseid);
+    search_url = BASE_URL.concat("courseid/", courseid);
   } else if (rest) {
-    search_url = BASE_URL.concat("&q=instructor:", rest);
+    search_url = BASE_URL.concat("instructor/", rest);
   }
   // If there's a constructed url, then search.
   if (search_url) {
@@ -88,14 +88,14 @@ function search(text) {
       var items = [];
       var result_prompt = "<br/>";
       try {
-        var hits = data.hits.hits;
-        if (data.hits.total == 0) {
+        var hits = data.fces;
+        if (hits.length == 0) {
           result_prompt = "Nothing was found.";
         }
         for (i in hits) {
           hit = hits[i];
-          course = new Course(hit._source);
-          items.push( course.getTable() );
+          course = new Course(hit);
+          items.push(course.getTable());
         }
       } catch(err) {
         result_prompt = "Some thing went wrong. " + err;
