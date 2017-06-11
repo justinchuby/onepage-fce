@@ -55,7 +55,7 @@ function Course (data) {
                    normalizeScore(this.questions["Q-02"]),
                    this.questions["Q-01"],
                    this.enrollment,
-                   this.resp_rate];
+                   this.resp_rate.toLocaleString("en", {style: "percent"})];
     table = "<tr><td>" + content.join("</td><td>") + "</td></tr>";
     return table;
   };
