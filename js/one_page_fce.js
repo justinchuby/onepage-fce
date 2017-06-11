@@ -78,9 +78,9 @@ function search(text) {
   var search_url;
   // Construct query url to the server.
   if (courseid) {
-    search_url = BASE_URL.concat("courseid/", courseid);
+    search_url = BASE_URL.concat("courseid/", courseid, "/");
   } else if (rest) {
-    search_url = BASE_URL.concat("instructor/", rest);
+    search_url = BASE_URL.concat("instructor/", rest, "/");
   }
   // If there's a constructed url, then search.
   if (search_url) {
