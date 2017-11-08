@@ -45,7 +45,13 @@ function Course (data) {
     })(data);
 
   this.getTable = function() {
-    var content = [this.courseid,
+    var courseidWithName = [];
+    courseidWithName.push(
+      '<div title="' + this.name + '">',
+      this.courseid,
+      "</div>");
+
+    var content = [courseidWithName.join(""),
                    this.year,
                    this.semester,
                    this.instructor,
@@ -56,7 +62,9 @@ function Course (data) {
                    this.questions["Q-01"],
                    this.enrollment,
                    this.resp_rate.toLocaleString("en", {style: "percent"})];
+
     table = "<tr><td>" + content.join("</td><td>") + "</td></tr>";
+
     return table;
   };
 };
