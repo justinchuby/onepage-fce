@@ -47,9 +47,9 @@ function Course (data) {
   this.getTable = function() {
     var courseidWithName = [];
     courseidWithName.push(
-      '<div title="' + this.name + '">',
+      '<a target="_blank" href="https://www.cmucoursefind.xyz/courses/' + this.courseid +'" title="' + this.name + '">',
       this.courseid,
-      "</div>");
+      "</a>");
 
     var content = [courseidWithName.join(""),
                    this.year,
